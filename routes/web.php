@@ -18,6 +18,10 @@ Route::get('/dash', function () {
     return view('admin.dashboard');
 })->name('dashboard');
 
+Route::get('/admin/post/new', function () {
+    return view('admin.post.new');
+})->name('new.post');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
