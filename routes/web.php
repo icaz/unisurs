@@ -18,16 +18,20 @@ Route::get('/dash', function () {
     return view('admin.dashboard');
 })->name('dashboard');
 
+/*
 Route::get('/admin/post/new', function () {
     return view('admin.post.new');
 })->name('new.post');
-
+*/
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
-    Route::resource('/users', 'UsersController', ['except'=>['show','create','store']]);
+Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
+    Route::resource('/users', 'UsersController', ['except'=>['show','create','store']])->middleware('can:manage-users');
+    Route::resource('/post', 'PostController')->middleware('can:manage-posts');
+    Route::resource('/tag', 'TagController')->middleware('can:manage-tags');
+    Route::resource('/category', 'CategoryController')->middleware('can:manage-categories');
 
 });
